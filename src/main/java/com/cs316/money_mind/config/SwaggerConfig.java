@@ -32,7 +32,7 @@ public class SwaggerConfig {
                 .ignoredParameterTypes(AuthenticationPrincipal.class)
                 .select()
                 .apis(RequestHandlerSelectors
-                        .basePackage("com.cs319.money_mind.controller"))
+                        .basePackage("com.cs316.money_mind.controller"))
                 .paths(PathSelectors.any()).build()
                 .apiInfo(apiInfo())
                 .securitySchemes(Lists.newArrayList(apiKey()))
