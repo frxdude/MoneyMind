@@ -21,7 +21,7 @@ deploy:
   tags:
     - deploy-ci
   script:
-    - if [ "$(netstat -tlnp | grep 8081 | wc -l)" -gt 0 ]; then pkill -9 -f money_mind.jar; fi
+    - if [ "$(netstat -tlnp | grep 8080 | wc -l)" -gt 0 ]; then pkill -9 -f money_mind.jar; fi
     - cd /app/money_mind
     - nohup java -jar money_mind.jar --spring.config.name=application --spring.config.location=file:///app/money_mind/ > money_mind.out 2>&1  &
     - echo DONE_B180910040_DONE
