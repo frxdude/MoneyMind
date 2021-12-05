@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
  * @author Sainjargal Ishdorj
  **/
 
-public enum  Role implements GrantedAuthority {
+public enum Role implements GrantedAuthority {
 
     ROLE_TEMP,
     //0-14 years
