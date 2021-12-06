@@ -24,6 +24,9 @@ public class TransactionRequest {
     private Double value;
 
     @NotNull(message = "{val.not.null}")
+    private Long categoryId;
+
+    @NotNull(message = "{val.not.null}")
     private LocalDateTime dateTime;
 
     @NotBlank(message = "{val.not.null}")

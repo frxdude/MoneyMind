@@ -1,4 +1,4 @@
-package com.cs316.money_mind.entity.Transaction;
+package com.cs316.money_mind.entity.transaction;
 
 import com.cs316.money_mind.entity.Audit;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -33,10 +33,13 @@ public class Transaction extends Audit {
     @Column(name = "VALUE")
     private Double value;
 
-    @Enumerated(EnumType.STRING)
-    private TransactionType type;
-
     @Column(name = "DATE_TIME")
     private LocalDateTime dateTime;
+
+    @Column(name = "CATEGORY_ID")
+    private Long categoryId;
+
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
 }
