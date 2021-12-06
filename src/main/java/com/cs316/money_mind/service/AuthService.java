@@ -23,7 +23,7 @@ public interface AuthService {
 
     AuthResponse exchangeToken (String refreshToken, HttpServletRequest req) throws TokenException;
 
-    HashMap<String, String> sendOtp(GenerateOTPRequest otpRequest, HttpServletRequest req) throws BusinessException, UnsupportedEncodingException;
+    HashMap<String, String> sendOtp(GenerateOTPRequest otpRequest, boolean forgot, HttpServletRequest req) throws BusinessException, UnsupportedEncodingException;
 
     HashMap<String, String> confirmOTP(ConfirmOTPRequest otpRequest, HttpServletRequest req) throws BusinessException;
 
