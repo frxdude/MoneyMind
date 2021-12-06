@@ -80,8 +80,9 @@ public class AuthController {
     })
     @RequestMapping(value = "otp/send", method = RequestMethod.POST)
     public ResponseEntity<Object> sendOTP(@Valid @RequestBody GenerateOTPRequest otpRequest,
+                                          @RequestParam(value = "forgot", required = false) boolean forgot,
                                           HttpServletRequest req) throws BusinessException, UnsupportedEncodingException {
-        return ResponseEntity.ok(service.sendOtp(otpRequest, req));
+        return ResponseEntity.ok(service.sendOtp(otpRequest, forgot, req));
     }
 
     @ApiOperation(value = "Хэрэглэгч ирсэн нэг удаагийн кодоо баталгаажуулан бүртгүүлэх үед хэрэглэгдэх Token авах", notes = "")

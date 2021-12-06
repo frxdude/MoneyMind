@@ -119,7 +119,7 @@ public class AuthServiceImpl implements AuthService {
      * @author Sainjargal Ishdorj
      **/
 
-    public HashMap<String, String> sendOtp(GenerateOTPRequest otpRequest, HttpServletRequest req) throws BusinessException {
+    public HashMap<String, String> sendOtp(GenerateOTPRequest otpRequest, boolean forgot, HttpServletRequest req) throws BusinessException {
         try {
             Logger.info(getClass().getName(), "[sendOtp][input][" + otpRequest.toString() + "]");
 
@@ -128,7 +128,12 @@ public class AuthServiceImpl implements AuthService {
 
             Optional<User> optionalUser = userRepository.findByEmail(otpRequest.getValue());
 
-            if (optionalUser.isPresent() && optionalUser.get().isActive())
+            if (forgot) {
+                userRepository.findByEmail(otpRequest.getValue())
+                        .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
+            }
+
+            if (!forgot && optionalUser.isPresent() && optionalUser.get().isActive())
                 throw new BusinessException(localization.getMessage("user.already"), "User already exists");
 
             String generatedOTP = RandomStringUtils.randomNumeric(4);
@@ -145,7 +150,7 @@ public class AuthServiceImpl implements AuthService {
                         "      <a href=\"\" style=\"font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600\">MoneyMind</a>\n" +
                         "    </div>\n" +
                         "    <p style=\"font-size:1.1em\">Сайн байна уу,</p>\n" +
-                        "    <p>MoneyMind сонгосон танд баярлалаа. Энэхүү баталгаажуулах кодыг ашиглан цааш бүртгүүлнэ үү. Баталгаажуулах кодын хүчингүй болох хугацаа 5 минут</p>\n" +
+                        "    <p>MoneyMind сонгосон танд баярлалаа. Энэхүү баталгаажуулах кодыг ашиглан цааш үргэлжлүүлнэ үү. Баталгаажуулах кодын хүчингүй болох хугацаа 5 минут</p>\n" +
                         "    <h2 style=\"background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;\">" + generatedOTP + "</h2>\n" +
                         "    <p style=\"font-size:0.9em;\">Хүндэтгэсэн,<br />MoneyMind </p>\n" +
                         "    <hr style=\"border:none;border-top:1px solid #eee\" />\n" +

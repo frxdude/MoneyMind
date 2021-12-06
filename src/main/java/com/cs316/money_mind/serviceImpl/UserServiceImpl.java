@@ -1,6 +1,7 @@
 package com.cs316.money_mind.serviceImpl;
 
 import com.cs316.money_mind.dto.request.auth.RegisterRequest;
+import com.cs316.money_mind.dto.request.user.ResetPasswordRequest;
 import com.cs316.money_mind.entity.User;
 import com.cs316.money_mind.exception.BusinessException;
 import com.cs316.money_mind.jwt.JwtTokenProvider;
@@ -43,19 +44,26 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * @param id  Long
-     * @param req servlet request
-     * @return {@link AuthResponse}
-     * @throws BusinessException
+     * @param resetRequest {@link ResetPasswordRequest} DTO
+     * @param req          servlet request
+     * @throws BusinessException when user not found
      * @author Sainjargal Ishdorj
      **/
-    public AuthResponse resetPassword(Long id, HttpServletRequest req) throws BusinessException {
+    public void resetPassword(ResetPasswordRequest resetRequest, HttpServletRequest req) throws BusinessException {
         try {
-            Logger.info(this.getClass().getName(), "[login][input][" + "" + "]");
-            Logger.info(this.getClass().getName(), "[login][output][" + "" + "]");
-            return null;
-        } catch (Exception ex) {
-            Logger.fatal(this.getClass().getName(), "[login][output][" + ex.getMessage() + "]", ex);
+            Logger.info(this.getClass().getName(), "[resetPassword][input][" + resetRequest.toString()+ "]");
+
+            User user = repository.findByEmail(req.getRemoteUser())
+                    .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
+
+            user.setPassword(encoder.encode(resetRequest.getPassword()));
+            repository.save(user);
+            Logger.info(this.getClass().getName(), "[resetPassword][output][" + "" + "]");
+        } catch (BusinessException ex) {
+            Logger.warn(getClass().getName(), "[resetPassword][" + ex.reason + "]");
+            throw ex;
+        }  catch (Exception ex) {
+            Logger.fatal(this.getClass().getName(), "[resetPassword][" + ex.getMessage() + "]", ex);
             throw ex;
         }
     }
@@ -79,9 +87,9 @@ public class UserServiceImpl implements UserService {
             int age = registerRequest.getAge();
 
             Role role = age < 15 ? Role.ROLE_CHILDREN :
-                        age < 25 ? Role.ROLE_YOUTH :
-                        age < 65 ? Role.ROLE_ADULT :
-                                   Role.ROLE_SENIOR;
+                    age < 25 ? Role.ROLE_YOUTH :
+                            age < 65 ? Role.ROLE_ADULT :
+                                    Role.ROLE_SENIOR;
 
             User user = repository.save(User.builder()
                     .isActive(true)
@@ -101,7 +109,7 @@ public class UserServiceImpl implements UserService {
             Logger.warn(getClass().getName(), "[register][" + ex.reason + "]");
             throw ex;
         } catch (Exception ex) {
-            Logger.fatal(this.getClass().getName(), "[register][output][" + ex.getMessage() + "]", ex);
+            Logger.fatal(this.getClass().getName(), "[register][" + ex.getMessage() + "]", ex);
             throw ex;
         }
     }
@@ -121,7 +129,7 @@ public class UserServiceImpl implements UserService {
             Logger.warn(getClass().getName(), "[findUser][" + ex.reason + "]");
             throw ex;
         } catch (Exception ex) {
-            Logger.fatal(this.getClass().getName(), "[findUser][output][" + ex.getMessage() + "]", ex);
+            Logger.fatal(this.getClass().getName(), "[findUser][" + ex.getMessage() + "]", ex);
             throw ex;
         }
     }
