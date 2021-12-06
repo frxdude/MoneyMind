@@ -37,8 +37,6 @@ public class Helper {
     public static void sendEmail(String body, String email, String subject) {
         final String username = env.getProperty("spring.mail.username");
         final String password = env.getProperty("spring.mail.password");
-        System.out.println("USERNAME:" + username);
-        System.out.println("PASSWORD:" + password);
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", env.getProperty("spring.mail.host"));
