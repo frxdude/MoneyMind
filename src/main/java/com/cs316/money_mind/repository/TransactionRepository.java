@@ -1,8 +1,9 @@
 package com.cs316.money_mind.repository;
 
-import com.cs316.money_mind.entity.Transaction.Transaction;
+import com.cs316.money_mind.entity.transaction.Transaction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -13,6 +14,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
 
-    Page<Transaction> findAll(Pageable pageable);
+    Page<Transaction> findAll(Specification<Transaction> transactionSpecification, Pageable pageable);
 
 }

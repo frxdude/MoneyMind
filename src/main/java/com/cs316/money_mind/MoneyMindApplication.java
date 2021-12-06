@@ -32,7 +32,7 @@ public class MoneyMindApplication {
 		SpringApplication.run(MoneyMindApplication.class, args);
 	}
 
-	@EventListener(ApplicationReadyEvent.class)
+//	@EventListener(ApplicationReadyEvent.class)
 	public void doSomething() {
 		System.out.println(env.getProperty("redis.url"));
 		userRepository.save(User.builder()
