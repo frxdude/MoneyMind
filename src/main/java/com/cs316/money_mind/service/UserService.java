@@ -1,6 +1,7 @@
 package com.cs316.money_mind.service;
 
 import com.cs316.money_mind.dto.request.auth.RegisterRequest;
+import com.cs316.money_mind.dto.request.user.ResetPasswordRequest;
 import com.cs316.money_mind.dto.response.auth.AuthResponse;
 import com.cs316.money_mind.entity.User;
 import com.cs316.money_mind.exception.BusinessException;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface UserService {
 
-    AuthResponse resetPassword(Long id, HttpServletRequest req) throws BusinessException;
+    void resetPassword(ResetPasswordRequest resetRequest, HttpServletRequest req) throws BusinessException;
 
     AuthResponse register(RegisterRequest authRequest, HttpServletRequest req) throws BusinessException;
 

@@ -1,6 +1,7 @@
 package com.cs316.money_mind.controller;
 
 import com.cs316.money_mind.dto.request.auth.RegisterRequest;
+import com.cs316.money_mind.dto.request.user.ResetPasswordRequest;
 import com.cs316.money_mind.dto.response.ErrorResponse;
 import com.cs316.money_mind.dto.response.auth.AuthResponse;
 import com.cs316.money_mind.exception.BusinessException;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -44,10 +46,12 @@ public class UserController {
             @ApiResponse(code = 403, response = ErrorResponse.class, message = "{} Object буцна"),
             @ApiResponse(code = 500, response = ErrorResponse.class, message = "{} Object буцна"),
     })
-    @RequestMapping(value = "{userId}/reset_password", method = RequestMethod.POST)
-    public ResponseEntity<Object> resetPassword(@PathVariable(value = "userId") Long id,
+    @RequestMapping(value = "/reset_password", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_TEMP')")
+    public ResponseEntity<Object> resetPassword(@Valid @RequestBody ResetPasswordRequest resetRequest,
                                                 HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.resetPassword(id, req));
+        service.resetPassword(resetRequest, req);
+        return ResponseEntity.noContent().build();
     }
 
     @ApiOperation(value = "Хэрэглэгч OTP баталгаажуулсны дараах ирсэн Token-г ашиглан бүртгүүлэх | TEMP", notes = "")
@@ -61,7 +65,7 @@ public class UserController {
     @RequestMapping(value = "register", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_TEMP')")
     public ResponseEntity<Object> register(@Valid @RequestBody RegisterRequest registerRequest,
-                                                HttpServletRequest req) throws BusinessException {
+                                           HttpServletRequest req) throws BusinessException {
         return ResponseEntity.ok(service.register(registerRequest, req));
     }
 }
