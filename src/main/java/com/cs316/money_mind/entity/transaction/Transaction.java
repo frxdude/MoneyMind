@@ -30,13 +30,13 @@ public class Transaction extends Audit {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
 
-    @Column(name = "VALUE")
-    private Double value;
+    @Column(name = "AMOUNT", nullable = false)
+    private Double amount;
 
-    @Column(name = "DATE_TIME")
+    @Column(name = "DATE_TIME", nullable = false)
     private LocalDateTime dateTime;
 
-    @Column(name = "CATEGORY_ID")
+    @Column(name = "CATEGORY_ID", nullable = false)
     private Long categoryId;
 
     @Enumerated(EnumType.STRING)
