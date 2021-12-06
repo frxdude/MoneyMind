@@ -145,7 +145,7 @@ public class AuthServiceImpl implements AuthService {
                         "      <a href=\"\" style=\"font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600\">MoneyMind</a>\n" +
                         "    </div>\n" +
                         "    <p style=\"font-size:1.1em\">Сайн байна уу,</p>\n" +
-                        "    <p>StackIn сонгосон танд баярлалаа. Энэхүү баталгаажуулах кодыг ашиглан цааш бүртгүүлнэ үү. Баталгаажуулах кодын хүчингүй болох хугацаа 5 минут</p>\n" +
+                        "    <p>MoneyMind сонгосон танд баярлалаа. Энэхүү баталгаажуулах кодыг ашиглан цааш бүртгүүлнэ үү. Баталгаажуулах кодын хүчингүй болох хугацаа 5 минут</p>\n" +
                         "    <h2 style=\"background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;\">" + generatedOTP + "</h2>\n" +
                         "    <p style=\"font-size:0.9em;\">Хүндэтгэсэн,<br />MoneyMind </p>\n" +
                         "    <hr style=\"border:none;border-top:1px solid #eee\" />\n" +
