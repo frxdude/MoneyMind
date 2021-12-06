@@ -94,7 +94,7 @@ public class TransactionServiceImpl implements TransactionService {
                             : Type.EXPENSE)
                     .categoryId(addRequest.getCategoryId())
                     .dateTime(addRequest.getDateTime())
-                    .value(addRequest.getValue())
+                    .amount(addRequest.getAmount())
                     .build();
             repository.save(transaction);
             Logger.info(this.getClass().getName(), "[add][output][" + transaction.toString() + "]");
@@ -112,7 +112,7 @@ public class TransactionServiceImpl implements TransactionService {
             transaction.setType(updateRequest.getType().equals("revenue")
                     ? Type.REVENUE
                     : Type.EXPENSE);
-            transaction.setValue(updateRequest.getValue());
+            transaction.setAmount(updateRequest.getAmount());
             transaction.setDateTime(updateRequest.getDateTime());
             Logger.info(this.getClass().getName(), "[update][output][" + transaction.toString() + "]");
             return repository.save(transaction);
